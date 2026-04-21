@@ -1,0 +1,86 @@
+---
+const faqs = [
+  {
+    question: 'Ile kosztuje outsourcing kadr i płac?',
+    answer: 'Koszt zależy od liczby pracowników i zakresu usług. Przygotowujemy indywidualną wycenę po bezpłatnej konsultacji. Zazwyczaj outsourcing jest o 30-50% tańszy niż utrzymanie własnego działu HR.',
+  },
+  {
+    question: 'Jak wygląda proces przejęcia obsługi kadrowej?',
+    answer: 'Cały proces trwa 2-4 tygodnie. Zaczynamy od audytu dokumentacji, potem stopniowo przejmujemy poszczególne procesy. Przez cały czas wdrożenia jesteśmy w stałym kontakcie, żeby nie było żadnych przestojów.',
+  },
+  {
+    question: 'Czy moje dane są bezpieczne?',
+    answer: 'Tak. Przetwarzamy dane zgodnie z RODO, korzystamy z szyfrowanych systemów, prowadzimy regularne audyty bezpieczeństwa i mamy pełne ubezpieczenie OC. Podpisujemy umowę powierzenia przetwarzania danych.',
+  },
+  {
+    question: 'Z jakiego systemu korzystacie?',
+    answer: 'Pracujemy na systemie Enova365 — jednym z najpopularniejszych systemów ERP w Polsce. Zapewniamy dostęp do e-teczek, raportów online i portalu pracowniczego.',
+  },
+  {
+    question: 'Czy mogę zlecić tylko część usług, np. same płace?',
+    answer: 'Oczywiście. Oferujemy elastyczne pakiety — od samej obsługi płacowej, przez kadry, po pełny outsourcing HR. Dobieramy zakres do Twoich potrzeb.',
+  },
+  {
+    question: 'Co się stanie, jeśli będę chciał zakończyć współpracę?',
+    answer: 'Umowa przewiduje standardowy okres wypowiedzenia. Po zakończeniu współpracy przekazujemy pełną dokumentację i pomagamy w płynnym przejściu — czy to do innej firmy, czy do wewnętrznego działu HR.',
+  },
+];
+---
+
+<section id="faq" class="py-20 lg:py-28 bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div class="inline-block bg-primary/10 text-primary text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+        FAQ
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        Najczęściej zadawane pytania
+      </h2>
+      <p class="text-lg text-gray-600">
+        Nie znalazłeś odpowiedzi? Napisz do nas — chętnie pomożemy.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {faqs.map((faq, i) => (
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden hover:border-primary/30 transition-colors">
+          <button
+            class="faq-toggle w-full flex items-center justify-between p-6 text-left font-semibold text-gray-900 hover:text-primary transition-colors"
+            aria-expanded="false"
+          >
+            <span>{faq.question}</span>
+            <svg class="faq-chevron w-5 h-5 flex-shrink-0 ml-4 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content hidden px-6 pb-6">
+            <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const content = item?.querySelector('.faq-content');
+      const chevron = item?.querySelector('.faq-chevron');
+      const isOpen = !content?.classList.contains('hidden');
+
+      // Close all
+      document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('rotate-180'));
+      document.querySelectorAll('.faq-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+
+      // Toggle current
+      if (!isOpen) {
+        content?.classList.remove('hidden');
+        chevron?.classList.add('rotate-180');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

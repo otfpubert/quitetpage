@@ -1,0 +1,82 @@
+---
+const links = [
+  { href: '#uslugi', label: 'Usługi' },
+  { href: '#jak-dzialamy', label: 'Jak działamy' },
+  { href: '#dlaczego-my', label: 'Dlaczego my' },
+  { href: '#opinie', label: 'Opinie' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#kontakt', label: 'Kontakt' },
+];
+---
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 lg:h-20">
+      <a href="/" class="text-2xl font-bold text-white transition-colors duration-300">
+        Strona<span class="text-accent">HR</span>
+      </a>
+
+      <!-- Desktop menu -->
+      <div class="hidden lg:flex items-center gap-8">
+        {links.map(link => (
+          <a href={link.href} class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">
+            {link.label}
+          </a>
+        ))}
+        <a href="#kontakt" class="bg-accent hover:bg-accent-light text-primary-dark font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">
+          Darmowa wycena
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="lg:hidden text-white p-2" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden hidden bg-primary-dark/95 backdrop-blur-sm border-t border-white/10">
+    <div class="px-4 py-4 space-y-2">
+      {links.map(link => (
+        <a href={link.href} class="mobile-link block px-4 py-2.5 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm">
+          {link.label}
+        </a>
+      ))}
+      <a href="#kontakt" class="block text-center bg-accent hover:bg-accent-light text-primary-dark font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm mt-3">
+        Darmowa wycena
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  // Scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('bg-primary-dark/95', 'backdrop-blur-sm', 'shadow-lg');
+      navbar?.classList.remove('bg-transparent');
+    } else {
+      navbar?.classList.remove('bg-primary-dark/95', 'backdrop-blur-sm', 'shadow-lg');
+      navbar?.classList.add('bg-transparent');
+    }
+  });
+
+  // Mobile menu toggle
+  mobileBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>
